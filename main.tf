@@ -1,4 +1,3 @@
-
 provider "aws" {
     region =  "ap-south-1"
 }
@@ -32,26 +31,17 @@ resource "aws_instance" "web" {
   ami           = var.ami
   instance_type = "t3.micro"
   key_name = "gameground"
+  count = 3
 
   vpc_security_group_ids = [aws_security_group.ssh_only.id]
   user_data = file("./script.sh")
 
   tags = {
-    Name = "My another new instance"
+    Name = "My another new instance -${count.index}"
   }
 }
 
 output "instance_public_ip" {
   description = "Public IP of the EC2 instance"
-  value       = aws_instance.web.public_ip
-}
-
-variable "ami" {
-  type = string
-  default = "ami-0f918f7e67a3323f0"
-  description = "AMI ID"
-  # validation {
-    # can add conditions like it must strat from something etc...
-  # }
-
+  value       = aws_instance.web[*].public_ip
 }
