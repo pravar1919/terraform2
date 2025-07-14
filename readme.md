@@ -49,3 +49,21 @@ local{
     Two types of dependency
     - Implicit
     - Explicit 
+
+- Variables
+    - Input 
+        - Declare through "variable" block and other ways as well
+        ```
+        variable{
+            key = "value"
+        }
+        ```
+    - Output
+    - Local
+        - Can oly be used inside the module only
+        ```
+        local{
+            name = "value"
+            ...
+        }
+        ```
